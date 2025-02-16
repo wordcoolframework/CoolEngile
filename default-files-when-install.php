@@ -1,5 +1,6 @@
 <?php
 final class Setup {
+
     public static function createDirectories(array $directories) {
         foreach ($directories as $dir) {
             if (!is_dir($dir)) {
