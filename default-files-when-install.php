@@ -3,7 +3,7 @@ final class Setup {
     private static string $rootPath;
 
     public static function init() {
-        self::$rootPath = dirname(__DIR__, 2) . DIRECTORY_SEPARATOR;
+        self::$rootPath = dirname(__DIR__, 3) . DIRECTORY_SEPARATOR;
     }
 
     public static function createDirectories(array $directories) {
@@ -41,8 +41,11 @@ $directories = [
     'template/views'
 ];
 
+$viewPath = self::$rootPath . 'template/views';
+$cachePath = self::$rootPath . 'template/caches';
+
 $files = [
-    'config/cool-view.php' => "<?php\n\nreturn [\n    'PrefixCharCoolEngine' => \"#\",\n    'ViewPath' => \"/template/views\",\n    'CachePath' => \"/template/caches\",\n];",
+    'config/cool-view.php' => "<?php\n\nreturn [   'ViewPath' => \"$viewPath\",\n    'CachePath' => \"$cachePath\",\n];",
 ];
 
 Setup::createDirectories($directories);
