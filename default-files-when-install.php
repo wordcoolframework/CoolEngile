@@ -1,9 +1,14 @@
 <?php
 final class Setup {
+    private static string $rootPath;
+
+    public static function init() {
+        self::$rootPath = dirname(__DIR__, 2) . DIRECTORY_SEPARATOR;
+    }
 
     public static function createDirectories(array $directories) {
         foreach ($directories as $dir) {
-            $path = getcwd() . DIRECTORY_SEPARATOR . $dir;
+            $path = self::$rootPath . $dir;
             if (!is_dir($path)) {
                 if (mkdir($path, 0755, true)) {
                     echo "[*] Created directory: $path\n";
@@ -16,7 +21,7 @@ final class Setup {
 
     public static function createFiles(array $files) {
         foreach ($files as $file => $content) {
-            $path = getcwd() . DIRECTORY_SEPARATOR . $file;
+            $path = self::$rootPath . $file;
             if (!file_exists($path)) {
                 if (file_put_contents($path, $content) !== false) {
                     echo "[*] Created file: $path\n";
@@ -27,6 +32,8 @@ final class Setup {
         }
     }
 }
+
+Setup::init();
 
 $directories = [
     'template/caches',
@@ -41,7 +48,8 @@ $files = [
 Setup::createDirectories($directories);
 Setup::createFiles($files);
 
-if (file_exists(__FILE__)) {
-    unlink(__FILE__);
-    echo "[*] Setup script deleted.\n";
+$scriptPath = __FILE__;
+if (file_exists($scriptPath)) {
+    unlink($scriptPath);
+    echo "[*] Setup script deleted: $scriptPath\n";
 }
