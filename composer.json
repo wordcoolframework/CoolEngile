@@ -1,0 +1,45 @@
+{
+    "name": "wordcoolframework/cool-view",
+    "description": "CoolView is Template Engine",
+    "version": "1.0.0",
+    "type": "library",
+    "keywords": ["cool engine", "cool view", "template engine"],
+    "license": "MIT",
+    "require": {
+        "php": ">=8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "CoolView\\": "src/",
+            "Configuration\\": "src/Configuration"
+        },
+        "files": [
+            "src/helper.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Vendor\\CoolView\\Tests\\": "src/Test/"
+        }
+    },
+    "authors": [
+        {
+            "name": "wordcoolframework",
+            "email": "wordcool.framework@gmail.com"
+        }
+    ],
+
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "require-dev": {
+        "phpunit/phpunit": "^11.5"
+    },
+    "scripts" : {
+        "post-install-cmd": [
+            "@php default-files-when-install.php"
+        ],
+        "post-update-cmd": [
+            "@php default-files-when-install.php"
+        ]
+    }
+}
