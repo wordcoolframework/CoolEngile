@@ -33,5 +33,13 @@
     "prefer-stable": true,
     "require-dev": {
         "phpunit/phpunit": "^11.5"
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "php vendor/wordcoolframework/cool-view/default-files-when-install.php"
+        ],
+        "post-update-cmd": [
+            "php vendor/wordcoolframework/cool-view/default-files-when-install.php"
+        ]
     }
 }

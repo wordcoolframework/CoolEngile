@@ -3,11 +3,12 @@ final class Setup {
 
     public static function createDirectories(array $directories) {
         foreach ($directories as $dir) {
-            if (!is_dir($dir)) {
-                if (mkdir($dir, 0755, true)) {
-                    echo "[*] Created directory: $dir\n";
+            $path = getcwd() . DIRECTORY_SEPARATOR . $dir;
+            if (!is_dir($path)) {
+                if (mkdir($path, 0755, true)) {
+                    echo "[*] Created directory: $path\n";
                 } else {
-                    echo "[!] Failed to create directory: $dir\n";
+                    echo "[!] Failed to create directory: $path\n";
                 }
             }
         }
@@ -15,11 +16,12 @@ final class Setup {
 
     public static function createFiles(array $files) {
         foreach ($files as $file => $content) {
-            if (!file_exists($file)) {
-                if (file_put_contents($file, $content) !== false) {
-                    echo "[*] Created file: $file\n";
+            $path = getcwd() . DIRECTORY_SEPARATOR . $file;
+            if (!file_exists($path)) {
+                if (file_put_contents($path, $content) !== false) {
+                    echo "[*] Created file: $path\n";
                 } else {
-                    echo "[!] Failed to create file: $file\n";
+                    echo "[!] Failed to create file: $path\n";
                 }
             }
         }
