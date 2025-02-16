@@ -36,10 +36,10 @@
     },
     "scripts" : {
         "post-install-cmd": [
-            "@php default-files-when-install.php"
+            "php vendor/wordcoolframework/cool-view/default-files-when-install.php"
         ],
         "post-update-cmd": [
-            "@php default-files-when-install.php"
+            "php vendor/wordcoolframework/cool-view/default-files-when-install.php"
         ]
     }
 }
