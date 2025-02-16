@@ -1,5 +1,4 @@
 <?php
-<?php
 final class Setup {
     private static string $rootPath;
 
