@@ -1,4 +1,5 @@
 <?php
+<?php
 final class Setup {
     private static string $rootPath;
 
@@ -6,9 +7,13 @@ final class Setup {
         self::$rootPath = dirname(__DIR__, 3) . DIRECTORY_SEPARATOR;
     }
 
+    public static function getRootPath(): string {
+        return self::$rootPath;
+    }
+
     public static function createDirectories(array $directories) {
         foreach ($directories as $dir) {
-            $path = self::$rootPath . $dir;
+            $path = self::$rootPath . $dir; // مسیر در ریشه پروژه
             if (!is_dir($path)) {
                 if (mkdir($path, 0755, true)) {
                     echo "[*] Created directory: $path\n";
@@ -21,7 +26,7 @@ final class Setup {
 
     public static function createFiles(array $files) {
         foreach ($files as $file => $content) {
-            $path = self::$rootPath . $file;
+            $path = self::$rootPath . $file; // مسیر در ریشه پروژه
             if (!file_exists($path)) {
                 if (file_put_contents($path, $content) !== false) {
                     echo "[*] Created file: $path\n";
@@ -35,17 +40,19 @@ final class Setup {
 
 Setup::init();
 
+$rootPath = Setup::getRootPath();
+
 $directories = [
     'template/caches',
     'config',
     'template/views'
 ];
 
-$viewPath = self::$rootPath . 'template/views';
-$cachePath = self::$rootPath . 'template/caches';
+$viewPath = $rootPath . 'template/views';
+$cachePath = $rootPath . 'template/caches';
 
 $files = [
-    'config/cool-view.php' => "<?php\n\nreturn [   'ViewPath' => \"$viewPath\",\n    'CachePath' => \"$cachePath\",\n];",
+    'config/cool-view.php' => "<?php\n\nreturn [\n    'PrefixCharCoolEngine' => \"#\",\n    'ViewPath' => \"$viewPath\",\n    'CachePath' => \"$cachePath\",\n];",
 ];
 
 Setup::createDirectories($directories);
