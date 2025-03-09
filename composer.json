@@ -1,7 +1,7 @@
 {
     "name": "wordcoolframework/cool-view",
     "description": "CoolView is Template Engine",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "type": "library",
     "keywords": ["cool engine", "cool view", "template engine"],
     "license": "MIT",
