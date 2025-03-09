@@ -2,8 +2,11 @@
 final class Setup {
     private static string $rootPath;
 
+    public static int $outSideVendor = 3;
+
     public static function init() : void{
-        self::$rootPath = dirname(__DIR__, 3) . DIRECTORY_SEPARATOR;
+        self::$rootPath = dirname(__DIR__, self::$outSideVendor)
+            . DIRECTORY_SEPARATOR;
     }
 
     public static function getRootPath(): string {
@@ -60,5 +63,5 @@ Setup::createFiles($files);
 $scriptPath = __FILE__;
 if (file_exists($scriptPath)) {
     unlink($scriptPath);
-    echo "[*] Setup script deleted: $scriptPath\n";
+    echo "[*] Setup is completed: $scriptPath\n";
 }

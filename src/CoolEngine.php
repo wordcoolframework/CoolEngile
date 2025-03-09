@@ -75,6 +75,7 @@ final class CoolEngine {
     }
 
     private function parseDirectives(string $template): string {
+
         $directives = self::get();
         $filters = $this->getFilters();
 
@@ -95,6 +96,19 @@ final class CoolEngine {
                 : "/{$PrefixCharCoolEngine}$key\\s*(?:\\((.+?)\\))?/";
             $template = preg_replace_callback($pattern, static function ($matches) use ($callback) {
                 return $callback($matches[1] ?? null);
+            }, $template);
+        }
+
+        foreach ($directives as $key => $callback) {
+            $pattern = "/<$key(?: var=\"(.+?)\")?>/";
+            $endPattern = "/<\/$key>/";
+
+            $template = preg_replace_callback($pattern, static function ($matches) use ($callback) {
+                return $callback($matches[1] ?? null);
+            }, $template);
+
+            $template = preg_replace_callback($endPattern, static function () use ($callback) {
+                return $callback();
             }, $template);
         }
 

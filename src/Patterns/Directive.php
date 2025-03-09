@@ -161,6 +161,97 @@ trait Directive {
                 return "<?php \${$variable} = new {$namespace}(); ?>";
             },
 
+
+
+            'wc:if' => function ($match) {
+                return "<?php if ({$match}): ?>";
+            },
+            'wc:else' => function () {
+                return "<?php else: ?>";
+            },
+            'wc:endif' => function () {
+                return "<?php endif; ?>";
+            },
+
+            'wc:foreach' => function ($match) {
+                return "<?php foreach ({$match}): ?>";
+            },
+            'wc:endforeach' => function () {
+                return "<?php endforeach; ?>";
+            },
+
+            'wc:istrue' => function ($match) {
+                return "<?php if (!empty({$match}) && {$match} === true): ?>";
+            },
+
+            'wc:isfalse' => function ($match) {
+                return "<?php if (!empty({$match}) && {$match} !== true): ?>";
+            },
+
+            'wc:isnull' => function ($match) {
+                return "<?php if (is_null({$match})): ?>";
+            },
+
+            'wc:isnotnull' => function ($match) {
+                return "<?php if (!is_null({$match})): ?>";
+            },
+
+            'wc:isset' => function ($match) {
+                return "<?php if (isset({$match})): ?>";
+            },
+            'wc:endisset' => function () {
+                return "<?php endif; ?>";
+            },
+
+            'wc:empty' => function ($match) {
+                return "<?php if (empty({$match})): ?>";
+            },
+            'endempty' => function () {
+                return "<?php endif; ?>";
+            },
+
+            'wc:repeat' => function ($match) {
+                $arguments = explode(',', $match);
+                $string = trim($arguments[0] ?? "''");
+                $times = trim($arguments[1] ?? '1');
+
+                return "<?php echo str_repeat({$string}, {$times}); ?>";
+            },
+
+            'wc:link' => function ($match) {
+                return "<?php echo '<a href=\"' . htmlspecialchars({$match}, ENT_QUOTES, 'UTF-8') . '\">' . htmlspecialchars({$match}, ENT_QUOTES, 'UTF-8') . '</a>'; ?>";
+            },
+
+            'wc:dd' => function($match){
+                return "<?php dd({$match}) ?>";
+            },
+
+            'wc:concat' => function ($match) {
+                return "<?php echo implode('', {$match}); ?>";
+            },
+            'wc:default' => function ($match) {
+                return "<?php echo !empty({$match}[0]) ? {$match}[0] : {$match}[1]; ?>";
+            },
+
+            'wc:fileexists' => function ($match) {
+                return "<?php if (file_exists({$match})): ?>";
+            },
+            'wc:endfileexists' => function () {
+                return "<?php endif; ?>";
+            },
+
+            'wc:inject' => function ($match) {
+                $arguments  = explode(',', $match);
+                $variable   = trim($arguments[0] ?? "''", "' ");
+                $namespace  = trim($arguments[1] ?? "''", "' ");
+
+                return "<?php \${$variable} = new {$namespace}(); ?>";
+            },
+
+            // live cool
+            'hx:get' => function ($match) {
+                return "<div hx-get=\"" . htmlspecialchars($match, ENT_QUOTES, 'UTF-8') . "\" hx-trigger=\"click\">Click me</div>";
+            },
         ];
 
     }
